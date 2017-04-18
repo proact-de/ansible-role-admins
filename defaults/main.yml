@@ -1,2 +1,5 @@
 ---
 # defaults file for teamix.admins
+admin_users: {}
+purge_admin: {}
+ansible_pubkey: ""
