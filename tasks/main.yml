@@ -50,6 +50,13 @@
     user: root
   with_dict: "{{ admin_users }}"
 
+- name: Install ansible SSH key for root user
+  authorized_key:
+    key: "{{ ansible_pubkey }}"
+    manage_dir: "yes"
+    state: present
+    user: root
+
 - name: purge old admin SSH keys for root user.
   authorized_key:
     key: "{{ item.value.sshkey }}"
