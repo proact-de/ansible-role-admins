@@ -11,15 +11,15 @@ None.
 Role Variables
 --------------
 
-* admin_users: dictionary for each user to be created and enabled:
+* tmxadmins_admin_users: dictionary for each user to be created and enabled:
   * Example:
-    admin_users:
+    tmxadmins_admin_users:
       username1:
         fullname: Hans W. User
         uid: 10000
         sshkey: "ssh-ed25519 AAAAC3NzaC1lDHZ%NTE5AAAAIIPc1iBgkjhf/KJNWD726KGAOnZtJbvFL35l3ZByz Hans W. User, <hansw@example.com>, 2017-02-05"
-* purge_admin: dictionary of admins to remove from systems. Identical to admin_users array.
-* ansible_ssh_key: SSH (public) key for access using ansible. will be deployed into root account.
+* tmxadmins_purge_admin: dictionary of admins to remove from systems. Identical to tmxadmins_admin_users dictionary.
+* tmxadmins_ansible_ssh_key: SSH (public) key for access using ansible. Will be deployed into root account.
 
 Dependencies
 ------------
@@ -43,5 +43,5 @@ BSD
 
 Author Information
 ------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Patrick Dreker (patrick.dreker@teamix.de)
+Source Code: https://bitbucket.devops.lab.teamix.net:8443/projects/CD/repos/teamix.admins/
