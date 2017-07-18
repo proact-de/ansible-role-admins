@@ -1,25 +1,57 @@
 ---
 # tasks file for teamix.admins
-- name: Create sudonopw group.
-  group: name=sudonopw  state=present system=yes
+- name: Include Distro dependent vars
+  include_vars: "{{ item }}"
+  with_items:
+    - "{{ ansible_os_family }}.yml"
+    - "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
 
-- name: Create ssh_allow group.
-  group: name=ssh_allow state=present system=true
+- name: Ensure sudo groups exists
+  group:
+    name: "{{ item }}"
+    state: present
+    system: true
+  with_items:
+    - "{{ sudo_allow_group }}"
+    - "{{ sudo_nopasswd_group }}"
 
-- name: Generate sudo config (sudoers.d file).
-  template: dest=/etc/sudoers.d/ansible group=root mode=0440 owner=root src=sudoers_sudonopw.j2  validate="visudo -q -c -f %s"
+- name: Ensure ssh_allow group exists.
+  group:
+    name: "{{ ssh_allow_group }}"
+    state: present
+    system: true
 
-- name: Generate sudo config (include sudoers.d).
-  lineinfile: dest=/etc/sudoers group=root mode=0440 owner=root insertafter=EOF regexp='^#includedir /etc/sudoers.d' state=present validate="visudo -q -c -f %s" line='#includedir /etc/sudoers.d'
+- name: Fetch list of admin users
+  shell: getent passwd | awk -F ":" '{ if ($3 >= 10000 && $3 < 20000 ) { print $1 }}'
+  register: admin_users_system
+  changed_when: false
+
+- name: Delete admin users (against whitelist)
+  user:
+    groups: ""
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ admin_users_system.stdout_lines }}"
+  when: item not in tmxadmins_admin_users.keys()
+
+- name: Archive home dirs of removed admins
+  archive:
+    dest: /home/{{ item }}_{{ ansible_date_time.iso8601 }}.tar.gz
+    owner: root
+    group: "{{ root_group }}"
+    path: /home/{{ item }}
+  with_items: "{{ admin_users_system.stdout_lines }}"
+  when: item not in tmxadmins_admin_users.keys()
 
 - name: Create admin users.
   user:
     append: "yes"
-    # Ansible does not support an array here currently -> starts in V2.3
-    groups: sudonopw,ssh_allow
+    groups:
+      - "{{ sudo_nopasswd_group }}"
+      - "{{ ssh_allow_group }}"
     name: "{{ item.key }}"
     uid: "{{ item.value.uid }}"
-    shell: /bin/bash
+    shell: "{{ admin_shell }}"
     comment: "Admin - {{ item.value.fullname }}"
     password: "!!"
     state: present
@@ -34,10 +66,6 @@
     manage_dir: "yes"
     state: present
   with_dict: "{{ tmxadmins_admin_users }}"
-
-- name: Purge old admins.
-  user: force=yes name={{ item.key }} state=absent groups=''
-  with_dict: "{{ tmxadmins_purge_admins }}"
 
 - name: Ensure root is in ssh_allow.
   user: append=yes groups=ssh_allow name=root
@@ -68,11 +96,11 @@
     exclusive: True
   when: not tmxadmins_admins_as_root
 
-- name: purge old admin SSH keys for root user.
-  authorized_key:
-    key: "{{ item.value.sshkey }}"
-    manage_dir: "yes"
-    state: absent
-    user: root
-  when: "item.value.sshkey is defined"
-  with_dict: "{{ tmxadmins_purge_admins }}"
+# - name: purge old admin SSH keys for root user.
+#   authorized_key:
+#     key: "{{ item.value.sshkey }}"
+#     manage_dir: "yes"
+#     state: absent
+#     user: root
+#   when: "item.value.sshkey is defined"
+#   with_dict: "{{ tmxadmins_purge_admins }}"
