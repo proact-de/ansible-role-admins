@@ -6,15 +6,6 @@
     - "{{ ansible_os_family }}.yml"
     - "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
 
-- name: Ensure sudo groups exists
-  group:
-    name: "{{ item }}"
-    state: present
-    system: true
-  with_items:
-    - "{{ sudo_allow_group }}"
-    - "{{ sudo_nopasswd_group }}"
-
 - name: Ensure ssh_allow group exists.
   group:
     name: "{{ ssh_allow_group }}"
