@@ -30,6 +30,7 @@
     dest: /home/{{ item }}_{{ ansible_date_time.iso8601 }}.tar.gz
     owner: root
     group: "{{ root_group }}"
+    mode: 0600
     path: /home/{{ item }}
   with_items: "{{ admin_users_system.stdout_lines }}"
   when: item not in tmxadmins_admin_users.keys()
