@@ -66,17 +66,6 @@
 - name: Ensure root is in ssh_allow.
   user: append=yes groups=ssh_allow name=root
 
-- name: Install admin SSH keys for root user.
-  authorized_key:
-    key: "{{ item.value.sshkey }}"
-    manage_dir: "yes"
-    state: present
-    user: root
-  with_dict: "{{ tmxadmins_admin_users }}"
-  when: tmxadmins_admins_as_root
-  loop_control:
-    label: "{{ item.key }}"
-
 - name: Install ansible SSH key for root user
   authorized_key:
     key: "{{ tmxadmins_root_pubkey }}"
