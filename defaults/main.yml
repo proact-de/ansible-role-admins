@@ -1,8 +1,6 @@
 ---
 # defaults file for teamix.admins
 tmxadmins_admin_users: {}
-tmxadmins_purge_admin: {}
-tmxadmins_ansible_pubkey: ""
-tmxadmins_admins_as_root: True
+tmxadmins_root_pubkey: ""
 root_group: root
 tmxadmins_shell: /bin/bash

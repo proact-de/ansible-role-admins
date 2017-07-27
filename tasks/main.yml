@@ -81,26 +81,8 @@
 
 - name: Install ansible SSH key for root user
   authorized_key:
-    key: "{{ tmxadmins_ansible_pubkey }}"
-    manage_dir: "yes"
-    state: present
-    user: root
-  when: tmxadmins_admins_as_root
-
-- name: Install ansible SSH key for root user (exclusive)
-  authorized_key:
     key: "{{ tmxadmins_root_pubkey }}"
     manage_dir: "yes"
     state: present
     user: root
     exclusive: True
-  when: not tmxadmins_admins_as_root
-
-# - name: purge old admin SSH keys for root user.
-#   authorized_key:
-#     key: "{{ item.value.sshkey }}"
-#     manage_dir: "yes"
-#     state: absent
-#     user: root
-#   when: "item.value.sshkey is defined"
-#   with_dict: "{{ tmxadmins_purge_admins }}"
