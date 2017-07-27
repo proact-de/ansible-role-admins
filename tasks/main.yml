@@ -51,7 +51,7 @@
       - "{{ ssh_allow_group }}"
     name: "{{ item.key }}"
     uid: "{{ item.value.uid }}"
-    shell: "{{ admin_shell }}"
+    shell: "{{ tmxadmins_shell }}"
     comment: "Admin - {{ item.value.fullname }}"
     password: "!!"
     state: present
@@ -89,7 +89,7 @@
 
 - name: Install ansible SSH key for root user (exclusive)
   authorized_key:
-    key: "{{ tmxadmins_ansible_pubkey }}"
+    key: "{{ tmxadmins_root_pubkey }}"
     manage_dir: "yes"
     state: present
     user: root

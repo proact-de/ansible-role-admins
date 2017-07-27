@@ -5,4 +5,4 @@ tmxadmins_purge_admin: {}
 tmxadmins_ansible_pubkey: ""
 tmxadmins_admins_as_root: True
 root_group: root
-admin_shell: /bin/bash
+tmxadmins_shell: /bin/bash
