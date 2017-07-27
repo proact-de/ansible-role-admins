@@ -49,6 +49,8 @@
     state: present
     update_password: always
   with_dict: "{{ tmxadmins_admin_users }}"
+  loop_control:
+    label: "{{ item.key }}"
 
 - name: Install SSH keys for admin users.
   authorized_key:
@@ -58,6 +60,8 @@
     manage_dir: "yes"
     state: present
   with_dict: "{{ tmxadmins_admin_users }}"
+  loop_control:
+    label: "{{ item.key }}"
 
 - name: Ensure root is in ssh_allow.
   user: append=yes groups=ssh_allow name=root
@@ -70,6 +74,8 @@
     user: root
   with_dict: "{{ tmxadmins_admin_users }}"
   when: tmxadmins_admins_as_root
+  loop_control:
+    label: "{{ item.key }}"
 
 - name: Install ansible SSH key for root user
   authorized_key:
