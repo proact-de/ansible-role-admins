@@ -32,6 +32,7 @@
     group: "{{ root_group }}"
     mode: 0600
     path: /home/{{ item }}
+    remove: True
   with_items: "{{ admin_users_system.stdout_lines }}"
   when: item not in tmxadmins_admin_users.keys()
 
