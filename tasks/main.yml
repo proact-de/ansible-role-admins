@@ -27,7 +27,7 @@
 
 - name: Archive home dirs of removed admins
   archive:
-    dest: /home/{{ item }}_{{ ansible_date_time.iso8601 }}.tar.gz
+    dest: /home/{{ ansible_date_time.iso8601 }}_{{ item }}.tar.gz
     owner: root
     group: "{{ root_group }}"
     mode: 0600
