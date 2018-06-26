@@ -67,6 +67,9 @@
 - name: Ensure root is in ssh_allow.
   user: append=yes groups=ssh_allow name=root
 
+- name: Ensure ubuntu is in ssh_allow.
+  user: append=yes groups=ssh_allow name=ubuntu
+
 - name: Install ansible SSH key for root user
   authorized_key:
     key: "{{ tmxadmins_root_pubkey }}"
