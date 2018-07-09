@@ -1,5 +1,5 @@
 ---
-# defaults file for teamix.admins
+# defaults file for proactcloud.admins
 tmxadmins_admin_users: {}
 tmxadmins_root_pubkey: ""
 root_group: root

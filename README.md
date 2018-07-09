@@ -1,4 +1,4 @@
-teamix.admins
+proactcloud.admins
 =============
 
 This role will configure a Linux system with neccessary user infrastructure for the admins, an ssh_allow group, SSH Key deployment and the appropriate user accounts. Specifically this role will create all users from the admins_users dictionary with the appropriate settings and SSH Keys (exclusively!). Root will only have a singular SSH key (this is enforced!), which is taken from tmxadmins_root_ssh_key
@@ -38,7 +38,7 @@ Including an example of how to use your role (for instance, with variables passe
     - hosts: servers
       include_vars: my_admins.yml
       roles:
-         - { role: teamix.admins }
+         - { role: proactcloud.admins }
 
 License
 -------
@@ -47,5 +47,5 @@ BSD
 
 Author Information
 ------------------
-Patrick Dreker (patrick.dreker@teamix.de)
-Source Code: https://bitbucket.devops.lab.teamix.net:8443/projects/CD/repos/teamix.admins/
+Patrick Dreker (patrick.dreker@proact.de)
+Source Code: Proact Gitlab

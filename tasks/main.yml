@@ -1,5 +1,5 @@
 ---
-# tasks file for teamix.admins
+# tasks file for proactcloud.admins
 - name: Include Distro dependent vars
   include_vars: "{{ item }}"
   with_items:
