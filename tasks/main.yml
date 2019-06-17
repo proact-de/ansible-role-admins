@@ -6,7 +6,7 @@
     params:
       files:
         - "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
-    - "{{ ansible_os_family }}.yml"
+        - "{{ ansible_os_family }}.yml"
         - distro_default.yml
       paths:
         - 'vars'
@@ -62,10 +62,16 @@
     label: "{{ item.key }}"
 
 - name: Ensure root is in ssh_allow.
-  user: append=yes groups=ssh_allow name=root
+  user:
+    append: yes
+    groups: ssh_allow
+    name: root
 
 - name: Ensure ubuntu is in ssh_allow.
-  user: append=yes groups=ssh_allow name=ubuntu
+  user:
+    append: yes
+    groups: ssh_allow
+    name: ubuntu
 
 - name: Install ansible SSH key for root user
   authorized_key:
