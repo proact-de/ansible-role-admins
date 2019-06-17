@@ -38,14 +38,12 @@
 - name: Create admin users.
   user:
     append: "yes"
-    groups:
-      - "{{ tmxsudo_nopasswd_group }}"
-      - "{{ tmxopenssh_allow_group }}"
+    groups: "{{ item.value.additional_groups }}"
     name: "{{ item.key }}"
     uid: "{{ item.value.uid }}"
     shell: "{{ tmxadmins_shell }}"
     comment: "Admin - {{ item.value.fullname }}"
-    password: "!!"
+    password: "{{ item.value.pwhash | default('!')}}"
     state: present
     update_password: always
   with_dict: "{{ tmxadmins_admin_users }}"
