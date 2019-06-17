@@ -4,3 +4,14 @@ tmxadmins_admin_users: {}
 tmxadmins_root_pubkey: ""
 root_group: root
 tmxadmins_shell: /bin/bash
+
+# Example how to define a user:
+# tmxadmin_admin_users:
+#   user1:
+#     fullname: "Rand L. User"
+#     uid: 10000
+#     # Generate pwhash by using "mkpasswd -m sha-512" (in package "whois" on Debian/Ubuntu)
+#     pwhash: "$6$7.5nDyJTH/59l$xVkBD3N2yIOmlMTdVz/ZXuDpLlG4/swALcBCgvt6ztu/IPFJsQGCDV2fN/XKpga/wTaQ9k6DqPv6ZOftnmIhI0"
+#     additional_groups:
+#       - sudonopw
+#       - ssh_allow
