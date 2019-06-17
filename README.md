@@ -1,5 +1,4 @@
-proactcloud.admins
-=============
+# proactcloud.admins
 
 This role will configure a Linux system with neccessary user infrastructure for the admins, an ssh_allow group, SSH Key deployment and the appropriate user accounts. Specifically this role will create all users from the admins_users dictionary with the appropriate settings and SSH Keys (exclusively!). Root will only have a singular SSH key (this is enforced!), which is taken from tmxadmins_root_ssh_key
 
@@ -7,13 +6,11 @@ Admin UIDs are expected to be in the 10000 - 20000 range (inclusive). In the fut
 
 UIDs above 20000 will then be considered "rogue" (except for nobody etc.) and will be purged.
 
-Requirements
-------------
+## Requirements
 
 None.
 
-Role Variables
---------------
+## Role Variables
 
 * tmxadmins_admin_users: dictionary for each user to be created and enabled:
   * Example:
@@ -25,13 +22,11 @@ Role Variables
 * tmxadmins_purge_admin: dictionary of admins to remove from systems. Identical to tmxadmins_admin_users dictionary.
 * tmxadmins_root_ssh_key: SSH (public) key for direct access to root. Will be deployed into root account.
 
-Dependencies
-------------
+## Dependencies
 
 None.
 
-Example Playbook
-----------------
+## Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
@@ -40,12 +35,22 @@ Including an example of how to use your role (for instance, with variables passe
       roles:
          - { role: proactcloud.admins }
 
-License
--------
+## License
 
-BSD
+Copyright 2019 Proact Deutschland GmbH
 
-Author Information
-------------------
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+<http://www.apache.org/licenses/LICENSE-2.0>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+## Author Information
+
 Patrick Dreker (patrick.dreker@proact.de)
-Source Code: Proact Gitlab
