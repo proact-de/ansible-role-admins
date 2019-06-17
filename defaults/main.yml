@@ -1,12 +1,12 @@
 ---
 # defaults file for proactcloud.admins
-tmxadmins_admin_users: {}
-tmxadmins_root_pubkey: ""
+pacadmins_admin_users: {}
+pacadmins_root_pubkey: ""
 root_group: root
-tmxadmins_shell: /bin/bash
+pacadmins_shell: /bin/bash
 
 # Example how to define a user:
-# tmxadmin_admin_users:
+# pacadmins_admin_users:
 #   user1:
 #     fullname: "Rand L. User"
 #     uid: 10000

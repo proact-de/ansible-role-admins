@@ -1,3 +1,3 @@
 ---
 root_group: wheel
-tmxadmins_shell: /usr/local/bin/bash
+pacadmins_shell: /usr/local/bin/bash

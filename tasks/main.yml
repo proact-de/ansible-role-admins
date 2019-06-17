@@ -22,7 +22,7 @@
     name: "{{ item }}"
     state: absent
   with_items: "{{ admin_users_system.stdout_lines }}"
-  when: item not in tmxadmins_admin_users.keys()
+  when: item not in pacadmins_admin_users.keys()
 
 - name: Archive home dirs of removed admins
   archive:
@@ -33,7 +33,7 @@
     path: /home/{{ item }}
     remove: True
   with_items: "{{ admin_users_system.stdout_lines }}"
-  when: item not in tmxadmins_admin_users.keys()
+  when: item not in pacadmins_admin_users.keys()
 
 - name: Create admin users.
   user:
@@ -41,12 +41,12 @@
     groups: "{{ item.value.additional_groups }}"
     name: "{{ item.key }}"
     uid: "{{ item.value.uid }}"
-    shell: "{{ tmxadmins_shell }}"
+    shell: "{{ pacadmins_shell }}"
     comment: "Admin - {{ item.value.fullname }}"
     password: "{{ item.value.pwhash | default('!')}}"
     state: present
     update_password: always
-  with_dict: "{{ tmxadmins_admin_users }}"
+  with_dict: "{{ pacadmins_admin_users }}"
   loop_control:
     label: "{{ item.key }}"
 
@@ -57,7 +57,7 @@
     key: "{{ item.value.sshkey }}"
     manage_dir: "yes"
     state: present
-  with_dict: "{{ tmxadmins_admin_users }}"
+  with_dict: "{{ pacadmins_admin_users }}"
   loop_control:
     label: "{{ item.key }}"
 
@@ -75,7 +75,7 @@
 
 - name: Install ansible SSH key for root user
   authorized_key:
-    key: "{{ tmxadmins_root_pubkey }}"
+    key: "{{ pacadmins_root_pubkey }}"
     manage_dir: "yes"
     state: present
     user: root
