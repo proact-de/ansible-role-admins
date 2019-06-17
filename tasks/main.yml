@@ -1,16 +1,15 @@
 ---
 # tasks file for proactcloud.admins
 - name: Include Distro dependent vars
-  include_vars: "{{ item }}"
-  with_items:
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
     - "{{ ansible_os_family }}.yml"
-    - "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
-
-- name: Ensure ssh_allow group exists.
-  group:
-    name: "{{ tmxopenssh_allow_group }}"
-    state: present
-    system: true
+        - distro_default.yml
+      paths:
+        - 'vars'
 
 - name: Fetch list of admin users
   shell: getent passwd | awk -F ":" '{ if ($3 >= 10000 && $3 < 20000 ) { print $1 }}'
