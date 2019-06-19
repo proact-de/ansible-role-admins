@@ -1,0 +1,7 @@
+pacadmins_admin_users:
+  testuser:
+    fullname: "John R. User"
+    uid: 10000
+    sshkey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJVQ7M+DreG7KFPepQ8/FTomHOPwO4XVmbcr43CYTcqn Dummy Key"
+    additional_groups:
+      - root
