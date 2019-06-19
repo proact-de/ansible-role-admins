@@ -61,18 +61,6 @@
   loop_control:
     label: "{{ item.key }}"
 
-- name: Ensure root is in ssh_allow.
-  user:
-    append: yes
-    groups: ssh_allow
-    name: root
-
-- name: Ensure ubuntu is in ssh_allow.
-  user:
-    append: yes
-    groups: ssh_allow
-    name: ubuntu
-
 - name: Install ansible SSH key for root user
   authorized_key:
     key: "{{ pacadmins_root_pubkey }}"
